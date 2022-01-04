@@ -14,6 +14,9 @@ class HttpClient:
               '''Chrome/34.0.1847.131 Safari/537.36'''
 
     def __init__(self, verbose=False):
+        """
+        Ultra Lightweight Asyncio HTTP Library
+        """
         if verbose:
             logger.info(f'Initialized HTTP client.')
         self.reader = None
@@ -53,6 +56,11 @@ class HttpClient:
         await self.writer.wait_closed()
 
     def url_parser_address(self, full_url):
+        """
+        Parse host and port out of a URL
+        :param full_url: 
+        :return: 
+        """
         if self.verbose:
             logger.info(f'Parse address: {full_url}')
         host = full_url.split('://')[1].split('/')[0]
@@ -65,9 +73,15 @@ class HttpClient:
             return host_port[0], int(host_port[1])
 
     def url_parser_path(self, full_url):
+        """
+        Parse the path out of a URL.
+        :param full_url: (https://example.com/hello.html,
+         https://www.example.com:8080/hello/hello.html)
+        :return: hello/ 
+        """
         if self.verbose:
             logger.info(f'Parse path: {full_url}')
-        res = ''
+        res = '/'
         try:
             full_url.split('://')[1].split(':')
         except IndexError:
